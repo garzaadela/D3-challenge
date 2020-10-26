@@ -20,5 +20,7 @@ let containerGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 d3.csv("assets/data/data.csv").then(function(stateData) {
+    stateData.poverty = +stateData.poverty;
+    stateData.healthcare = +stateData.healthcare;
     console.log(stateData);
 });
