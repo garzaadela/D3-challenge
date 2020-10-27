@@ -73,8 +73,8 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
 
     // create event listeners to display and hide the tooltip
 
-    circlesGroup.on("click", function(data) {
-        toolTip.show(data, this);
+    circlesGroup.on("mouseover", function(data) {
+        toolTip.show(data);
     })
 
     // onmouseout event
@@ -89,12 +89,12 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .attr("class", "axisText")
-        .text("Number of Billboard 100 Hits");
+        .text("Lacks Healthcare(%)");
 
     scatterGroup.append("text")
         .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
         .attr("class", "axisText")
-        .text("Hair Metal Band Hair Length (inches)");
+        .text("In Poverty(%)");
     }).catch(function(error) {
         console.log(error);
     });
