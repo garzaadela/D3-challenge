@@ -53,19 +53,26 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     let circlesGroup = scatterGroup.selectAll("circle")
     .data(stateData)
     .enter()
-    .append("circle")
+
+    circlesGroup.append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", "15")
     .attr("fill", "pink")
     .attr("opacity", ".5");
 
+
+    circlesGroup.append("text") 
+    .text(d => d.abbr)
+    .attr("x", d => xLinearScale(d.poverty)-10)
+    .attr("y", d => yLinearScale(d.healthcare));
+
     // initialize tool tip
     let toolTip = d3.tip()
         .attr("class", "tooltip")
         .offset([80, -60])
         .html(function(d) {
-            return(`${d.healthdata}<br>Poverty: ${d.poverty}<br>Healthcare: ${d.healthcare}`);
+            return(`Poverty: ${d.poverty}, Healthcare: ${d.healthcare}`);
         });
 
     // create tooltip in the chart
