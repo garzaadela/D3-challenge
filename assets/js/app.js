@@ -28,13 +28,21 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     });
     
     // create scale functions
+    // let xLinearScale = d3.scaleLinear()
+    //     .domain([20, d3.max(stateData, d => d.poverty)])
+    //     .range([0, width]);
+
+    // let yLinearScale = d3.scaleLinear()
+    //     .domain([0, d3.max(stateData, d => d.healthcare)])
+    //     .range([height, 0]);
+
     let xLinearScale = d3.scaleLinear()
-        .domain([20, d3.max(stateData, d => d.poverty)])
-        .range([0, width]);
+        .domain([d3.min(stateData, d => (0.90) * d.poverty), d3.max(stateData, d => (1.10 * d.poverty))])
+        .range([0, width])
 
     let yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(stateData, d => d.healthcare)])
-        .range([height, 0]);
+        .domain([d3.min(stateData, d => (0.90) * d.healthcare), d3.max(stateData, d => (1.10) * d.healthcare)])
+        .range([height, 0])
 
     // create axis functions
     let bottomAxis = d3.axisBottom(xLinearScale);
@@ -106,8 +114,8 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .data(stateData).enter().append("text") 
     .text(d => d.abbr)
     .attr("x", d => xLinearScale(d.poverty)-10)
-    .attr("y", d => yLinearScale(d.healthcare));
-    
+    .attr("y", d => yLinearScale(d.healthcare))
+    .attr("class", "tooltiptext");
     scatterGroup.call(toolTip);
     
 }).catch(function(error) {

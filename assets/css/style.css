@@ -31,3 +31,9 @@ body {
   margin: 0;
   font-size: 16px;
 }
+
+.tooltiptext {
+  font-size: 12px;
+  fill: royalblue;
+  font-weight: bold;
+}
