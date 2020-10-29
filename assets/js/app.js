@@ -53,19 +53,19 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     let circlesGroup = scatterGroup.selectAll("circle")
     .data(stateData)
     .enter()
-
-    circlesGroup.append("circle")
+    
+    .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", "15")
     .attr("fill", "pink")
     .attr("opacity", ".5");
+    
+    // circlesGroup.append("text") 
+    // .text(d => d.abbr)
+    // .attr("x", d => xLinearScale(d.poverty)-10)
+    // .attr("y", d => yLinearScale(d.healthcare));
 
-
-    circlesGroup.append("text") 
-    .text(d => d.abbr)
-    .attr("x", d => xLinearScale(d.poverty)-10)
-    .attr("y", d => yLinearScale(d.healthcare));
 
     // initialize tool tip
     let toolTip = d3.tip()
@@ -76,32 +76,40 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
         });
 
     // create tooltip in the chart
-    scatterGroup.call(toolTip);
-
+    
     // create event listeners to display and hide the tooltip
-
+    
     circlesGroup.on("mouseover", function(data) {
         toolTip.show(data);
     })
-
+    
     // onmouseout event
     .on("mouseout", function(data, index) {
         toolTip.hide(data);
     });
-
+    
     // create axes labels
     scatterGroup.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left + 40)
-        .attr("x", 0 - (height / 2))
-        .attr("dy", "1em")
-        .attr("class", "axisText")
-        .text("Lacks Healthcare(%)");
-
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left + 40)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .attr("class", "axisText")
+    .text("Lacks Healthcare(%)");
+    
     scatterGroup.append("text")
-        .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
-        .attr("class", "axisText")
-        .text("In Poverty(%)");
-    }).catch(function(error) {
-        console.log(error);
-    });
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+    .attr("class", "axisText")
+    .text("In Poverty(%)");
+    
+    scatterGroup.selectAll("null")
+    .data(stateData).enter().append("text") 
+    .text(d => d.abbr)
+    .attr("x", d => xLinearScale(d.poverty)-10)
+    .attr("y", d => yLinearScale(d.healthcare));
+    
+    scatterGroup.call(toolTip);
+    
+}).catch(function(error) {
+    console.log(error);
+});
