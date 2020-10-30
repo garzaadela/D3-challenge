@@ -27,15 +27,6 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
 
     });
     
-    // create scale functions
-    // let xLinearScale = d3.scaleLinear()
-    //     .domain([20, d3.max(stateData, d => d.poverty)])
-    //     .range([0, width]);
-
-    // let yLinearScale = d3.scaleLinear()
-    //     .domain([0, d3.max(stateData, d => d.healthcare)])
-    //     .range([height, 0]);
-
     let xLinearScale = d3.scaleLinear()
         .domain([d3.min(stateData, d => (0.90) * d.poverty), d3.max(stateData, d => (1.10 * d.poverty))])
         .range([0, width])
@@ -69,12 +60,6 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .attr("fill", "pink")
     .attr("opacity", ".5");
     
-    // circlesGroup.append("text") 
-    // .text(d => d.abbr)
-    // .attr("x", d => xLinearScale(d.poverty)-10)
-    // .attr("y", d => yLinearScale(d.healthcare));
-
-
     // initialize tool tip
     let toolTip = d3.tip()
         .attr("class", "tooltip")
@@ -84,7 +69,6 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
         });
 
     // create tooltip in the chart
-    
     // create event listeners to display and hide the tooltip
     
     circlesGroup.on("mouseover", function(data) {
